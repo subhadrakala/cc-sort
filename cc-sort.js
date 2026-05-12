@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-
+import { radixSort } from './sortalgos.js';
 
 async function isFile(path) {
     try {
@@ -28,7 +28,7 @@ async function main() {
         sortAlgos.add('merge');
         sortAlgos.add('heap');
         
-        args.forEach(  async a => {
+        for(let a of args) {
             if( a === '-u') {
                 unique = true;
             }
@@ -46,13 +46,26 @@ async function main() {
                 }   
                 filename = a;
             }
-        });
-           
-        filename = args[1];
-       
+        }
 
         const fileData = await fs.readFile(filename, 'utf-8');
-        let fileArray = fileData.trim().split('\n').sort();
+        let fileArray = fileData.trim().split('\n');
+
+        if (algo === 'radix') {
+            fileArray = radixSort(fileArray);
+        }
+        /*else if (algo === 'quick') {
+            fileArray = quicksort(fileArray);
+        }
+        else if (algo === 'merge') {
+            fileArray = mergeSort(fileArray);
+        }
+        else if (algo === 'heap') {
+            fileArray = heapSort(fileArray);
+        } */
+       else {
+        fileArray = fileArray.sort();
+       }
 
         if (unique) {
             fileArray = [...new Set(fileArray)];
