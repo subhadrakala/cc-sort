@@ -9,3 +9,9 @@ test('sorts lines of a file', async () => {
     const { stdout } = await execAsync('node cc-sort.js words.txt | uniq | head -n5');
     assert.strictEqual(stdout, "A\nACTUAL\nAGREE\nAGREEMENT\nAND\n");
 });
+
+test('sorts lines of a file with -u argument', async () => {
+    const { stdout } = await execAsync('node cc-sort.js -u words.txt | head -n5');
+    assert.strictEqual(stdout, "A\nACTUAL\nAGREE\nAGREEMENT\nAND\n");
+});
+
