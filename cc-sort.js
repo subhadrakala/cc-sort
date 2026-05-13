@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { radixSort, mergeSort, quickSort, heapSort } from './sortalgos.js';
+import { radixSort, mergeSort, quickSort, heapSort, randomSort } from './sortalgos.js';
 
 async function isFile(path) {
     try {
@@ -27,6 +27,7 @@ async function main() {
         sortAlgos.add('quick');
         sortAlgos.add('merge');
         sortAlgos.add('heap');
+        sortAlgos.add('random');
 
         for (let a of args) {
             if (a === '-u') {
@@ -62,6 +63,9 @@ async function main() {
         }
         else if (algo === 'heap') {
             fileArray = heapSort(fileArray);
+        }
+        else if (algo === 'random') {
+            fileArray = randomSort(fileArray);
         }
         else {
             fileArray = fileArray.sort();

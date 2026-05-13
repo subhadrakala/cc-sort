@@ -88,7 +88,6 @@ export function quickSort(a, left = 0, right = a.length - 1) {
         }
     }
 
-    // Move the pivot to its correct spot in the middle using 'temp' swap
     let temp = a[partitionIndex];
     a[partitionIndex] = a[right];
     a[right] = temp;
@@ -129,5 +128,22 @@ export function heapSort(a) {
         a[i] = temp;
         heapify(a, i, 0);
     }
+    return a;
+}
+
+export function randomSort(a) {
+
+    let map = new Map();
+
+    for (let i=0; i <a.length; i++) {
+        if (!map.has(a[i])) {
+            map.set(a[i], Math.random())
+        }
+    }
+
+    a.sort( function(x, y) {
+        return map.get(x) - map.get(y);
+    });
+
     return a;
 }
