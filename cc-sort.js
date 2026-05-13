@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { radixSort } from './sortalgos.js';
+import { radixSort, mergeSort } from './sortalgos.js';
 
 async function isFile(path) {
     try {
@@ -56,11 +56,11 @@ async function main() {
         }
         /*else if (algo === 'quick') {
             fileArray = quicksort(fileArray);
-        }
+        } */
         else if (algo === 'merge') {
             fileArray = mergeSort(fileArray);
         }
-        else if (algo === 'heap') {
+        /*else if (algo === 'heap') {
             fileArray = heapSort(fileArray);
         } */
        else {
