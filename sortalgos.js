@@ -69,3 +69,65 @@ function merge(left, right) {
     return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
 
 }
+
+export function quickSort(a, left = 0, right = a.length - 1) {
+    if (left >= right) {
+        return a;
+    }
+
+    const pivot = a[right];
+    let partitionIndex = left;
+
+    for (let i = left; i < right; i++) {
+        if (a[i] < pivot) {
+            let temp = a[i];
+            a[i] = a[partitionIndex];
+            a[partitionIndex] = temp;
+            
+            partitionIndex++;
+        }
+    }
+
+    // Move the pivot to its correct spot in the middle using 'temp' swap
+    let temp = a[partitionIndex];
+    a[partitionIndex] = a[right];
+    a[right] = temp;
+
+    quickSort(a, left, partitionIndex - 1);
+    quickSort(a, partitionIndex + 1, right);
+
+    return a;
+}
+
+function heapify(a, l, i) {
+    let largest = i;
+    let leftChild = (2*i) + 1;
+    let rightChild = (2*i) + 2;
+    
+    if (leftChild < l && a[leftChild] > a[largest]) {
+        largest = leftChild;
+    }
+    if (rightChild < l && a[rightChild] > a[largest]) {
+        largest = rightChild;
+    }
+    if (largest != i) {
+        let temp = a[i];
+        a[i] = a[largest];
+        a[largest] = temp;
+        heapify(a, l, largest);
+    } 
+}
+
+export function heapSort(a) {
+    let l = a.length;
+    for (let i = l / 2 - 1; i >= 0; i--) {
+        heapify(a, l, i);
+    }
+    for (let i = l - 1; i > 0; i--) {
+        let temp = a[0];
+        a[0] = a[i];
+        a[i] = temp;
+        heapify(a, i, 0);
+    }
+    return a;
+}

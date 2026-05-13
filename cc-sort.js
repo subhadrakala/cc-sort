@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { radixSort, mergeSort } from './sortalgos.js';
+import { radixSort, mergeSort, quickSort, heapSort } from './sortalgos.js';
 
 async function isFile(path) {
     try {
@@ -27,12 +27,12 @@ async function main() {
         sortAlgos.add('quick');
         sortAlgos.add('merge');
         sortAlgos.add('heap');
-        
-        for(let a of args) {
-            if( a === '-u') {
+
+        for (let a of args) {
+            if (a === '-u') {
                 unique = true;
             }
-            else if ( a.startsWith('-sort')) {
+            else if (a.startsWith('-sort')) {
                 algo = a.replace('-sort=', '');
                 if (!sortAlgos.has(algo)) {
                     console.log('This sort function is not supported');
@@ -40,10 +40,10 @@ async function main() {
                 }
             }
             else {
-                 if (! await isFile(a)) {
+                if (! await isFile(a)) {
                     console.error('Invalid file');
                     return;
-                }   
+                }
                 filename = a;
             }
         }
@@ -54,18 +54,18 @@ async function main() {
         if (algo === 'radix') {
             fileArray = radixSort(fileArray);
         }
-        /*else if (algo === 'quick') {
-            fileArray = quicksort(fileArray);
-        } */
+        else if (algo === 'quick') {
+            fileArray = quickSort(fileArray);
+        }
         else if (algo === 'merge') {
             fileArray = mergeSort(fileArray);
         }
-        /*else if (algo === 'heap') {
+        else if (algo === 'heap') {
             fileArray = heapSort(fileArray);
-        } */
-       else {
-        fileArray = fileArray.sort();
-       }
+        }
+        else {
+            fileArray = fileArray.sort();
+        }
 
         if (unique) {
             fileArray = [...new Set(fileArray)];
